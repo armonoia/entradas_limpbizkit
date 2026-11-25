@@ -38,9 +38,13 @@ btnConfirmar.addEventListener("click", () => {
 
   setTimeout(() => {
     stockEl.textContent = "0";
+    clearInterval(timer);            // frena el contador de stock
+    campo.style.pointerEvents = "none";   // ya no se puede clickear el campo
+    selectCantidad.disabled = true;
+    document.getElementById("nombre").disabled = true;
+    document.getElementById("email").disabled = true;
+    btnConfirmar.innerHTML = "Agotado";   // el botón queda deshabilitado
     modalAgotado.show();
-    btnConfirmar.innerHTML = "Confirmar compra";
-    btnConfirmar.disabled = !sectorSeleccionado;
   }, 1800);
 });
 

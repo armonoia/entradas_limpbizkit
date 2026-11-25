@@ -113,26 +113,39 @@
   </main>
 
   <!-- Popup: sin entradas -->
- <!-- Popup: sin entradas -->
-<div class="modal fade" id="modalAgotado" tabindex="-1" aria-hidden="true"
-     data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center p-3">
-      <div class="modal-body">
-        <div style="font-size: 4rem;">😵</div>
-        <h3 class="titulo-banda text-danger mt-2">¡Ups!</h3>
-        <p class="fs-5 mb-1">No quedan más entradas.</p>
-        <p class="text-secondary mb-0">Llegaste tarde, alguien se te adelantó. Volvé a lo que estabas haciendo.</p>
+  <div class="modal fade" id="modalAgotado" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-3">
+        <div class="modal-body">
+          <div style="font-size: 4rem;">😵</div>
+          <h3 class="titulo-banda text-danger mt-2">¡Ups!</h3>
+          <p class="fs-5 mb-1">No quedan más entradas.</p>
+          <p class="text-secondary">Llegaste tarde, alguien se te adelantó.</p>
+          <a href="index.html" class="btn btn-comprar mt-2">Volver al inicio</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <footer class="text-center py-4">
     <div class="container">
       Proyecto académico con fines educativos. Sitio ficticio: no se venden entradas reales.
     </div>
   </footer>
+
+  <!-- Notificación estilo WhatsApp: aparece cuando termina el audio del cartel de "sin entradas" -->
+  <a href="chat-fede.html" class="notif-wsp" id="notifWsp" aria-hidden="true" tabindex="-1">
+    <div class="notif-avatar" id="notifAvatar">😎</div>
+    <div class="notif-cuerpo">
+      <div class="notif-fila">
+        <span class="notif-app">💬 WhatsApp</span>
+        <span class="notif-hora">ahora</span>
+      </div>
+      <div class="notif-nombre">Fede</div>
+      <div class="notif-texto">Escribile a Fede 👉</div>
+    </div>
+    <span class="notif-badge">1</span>
+  </a>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="comprar.js"></script>

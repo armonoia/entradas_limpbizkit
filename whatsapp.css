@@ -1,0 +1,623 @@
+/* ============================================================
+   FUENTES PERSONALIZADAS
+   - FuenteGlobos: burbujas de "lo que pensás".
+   - FuenteMensajes: mensajes del chat (los que llegan y los que se envían).
+   Copiá los archivos de tu fuente a esta carpeta con alguno de estos
+   nombres. Si usás una sola fuente para todo, alcanza con
+   fuente-manuscrita.ttf (se usa como respaldo en las dos).
+   ============================================================ */
+@font-face {
+  font-family: "FuenteGlobos";
+  src: url("fuente.woff2") format("woff2"),
+       url("fuente.ttf") format("truetype"),
+       url("fuente.otf") format("opentype"),
+       url("fuente-manuscrita.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FuenteMensajes";
+  src: url("fuente-mensajes.woff2") format("woff2"),
+       url("fuente-mensajes.ttf") format("truetype"),
+       url("fuente-mensajes.otf") format("opentype"),
+       url("fuente-manuscrita.ttf") format("truetype");
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --verde: #9ef000;
+  --amarillo: #f9de00;
+  --fucsia: #ff0054;
+  --violeta: #2b1a3c;
+  --azul: #2c365e;
+  --texto-suave: rgba(255, 255, 255, 0.6);
+  --linea: rgba(255, 255, 255, 0.1);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--violeta), var(--azul));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  background: var(--violeta);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 1500px) {
+  .app {
+    height: 95vh;
+  }
+}
+
+/* ---------- Pantalla de inicio (hace falta un toque para que suene el sonido) ---------- */
+.inicio {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(23, 13, 34, 0.92);
+}
+
+.inicio[hidden] {
+  display: none;
+}
+
+.inicio button {
+  font-family: "FuenteGlobos", "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--violeta);
+  border: 2px solid var(--verde);
+  color: var(--verde);
+  border-radius: 18px;
+  padding: 14px 28px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+
+.inicio button:hover {
+  background: var(--verde);
+  color: var(--violeta);
+  transform: translateY(-2px);
+}
+
+/* ---------- Panel izquierdo ---------- */
+.sidebar {
+  width: 30%;
+  min-width: 300px;
+  max-width: 420px;
+  border-right: 1px solid var(--linea);
+  display: flex;
+  flex-direction: column;
+  background: var(--violeta);
+}
+
+.sidebar-top {
+  background: rgba(0, 0, 0, 0.25);
+  height: 59px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  background: var(--azul);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.sidebar-iconos {
+  color: var(--texto-suave);
+  font-size: 1.2rem;
+  letter-spacing: 12px;
+}
+
+.buscador {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.buscador div {
+  background: var(--azul);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+.lista-chats {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.chat-item {
+  display: flex;
+  gap: 14px;
+  padding: 12px 16px;
+  align-items: center;
+  border-bottom: 1px solid var(--linea);
+  cursor: pointer;
+}
+
+.chat-item[hidden] {
+  display: none;
+}
+
+.chat-item:hover {
+  background: rgba(44, 54, 94, 0.5);
+}
+
+.chat-item.activo {
+  background: var(--azul);
+}
+
+.chat-item.nuevo-chat {
+  animation: latido 1.1s ease-in-out 4;
+}
+
+@keyframes latido {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.chat-item .info {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-item .fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-item .nombre {
+  font-size: 1.15rem;
+  color: #fff;
+}
+
+.chat-item .hora {
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+}
+
+.chat-item .hora.nuevo {
+  color: var(--verde);
+  font-weight: 600;
+}
+
+.chat-item .preview {
+  font-size: 1rem;
+  color: var(--texto-suave);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge-nuevo {
+  background: var(--verde);
+  color: var(--violeta);
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+}
+
+/* ---------- Panel de chat ---------- */
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chat-header {
+  background: rgba(0, 0, 0, 0.28);
+  height: 59px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.chat-header .titulo {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.chat-header .estado {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+.chat-header .estado.escribiendo {
+  color: var(--verde);
+}
+
+/* Botón de volver (solo se ve en el celular) */
+.volver {
+  display: none;
+  background: none;
+  border: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* Zona del chat: fondo con patrón + mensajes por encima */
+.zona-chat {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.patron {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--violeta);
+}
+
+/* El patrón se dibuja en un canvas (lo arma whatsapp.js): las imágenes se
+   invierten y se mezclan en modo "screen", suaves y con poca opacidad. */
+.patron canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+}
+
+.paneles {
+  position: absolute;
+  inset: 0;
+}
+
+/* Una conversación por chat: solo se ve la activa */
+.mensajes {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow-y: auto;
+  padding: 20px 6%;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mensajes.activo {
+  display: flex;
+}
+
+.dia {
+  align-self: center;
+  background: var(--amarillo);
+  color: var(--violeta);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+}
+
+.burbuja {
+  font-family: "FuenteMensajes", "FuenteGlobos", "Segoe UI", Helvetica, Arial, sans-serif;
+  max-width: 65%;
+  padding: 6px 8px 6px 9px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  position: relative;
+  animation: aparecer 0.2s ease-out;
+  word-wrap: break-word;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mensajes que llegan */
+.burbuja.entrante {
+  align-self: flex-start;
+  background: var(--fucsia);
+  color: #fff;
+  border-top-left-radius: 0;
+}
+
+/* Tus mensajes */
+.burbuja.saliente {
+  align-self: flex-end;
+  background: var(--azul);
+  color: #fff;
+  border: 1px solid rgba(158, 240, 0, 0.45);
+  border-top-right-radius: 0;
+}
+
+.burbuja .meta {
+  float: right;
+  margin: 8px 0 -4px 12px;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.burbuja.entrante .meta {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.burbuja.saliente .meta {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tilde {
+  letter-spacing: -4px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.tilde.leido {
+  color: var(--verde);
+}
+
+/* Captura de pantalla dentro de un mensaje */
+.burbuja.con-foto {
+  width: min(65%, 380px);
+}
+
+.foto {
+  margin: 2px 0 6px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.foto img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Si todavía no está la imagen, se ve este recuadro */
+.foto.falta {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+}
+
+.escribiendo-burbuja {
+  align-self: flex-start;
+  background: var(--fucsia);
+  padding: 12px 14px;
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  display: flex;
+  gap: 4px;
+}
+
+.escribiendo-burbuja span {
+  width: 7px;
+  height: 7px;
+  background: #fff;
+  border-radius: 50%;
+  animation: salto 1.2s infinite;
+}
+
+.escribiendo-burbuja span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.escribiendo-burbuja span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes salto {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* ---------- Pie con respuestas ---------- */
+.pie {
+  background: rgba(0, 0, 0, 0.28);
+  padding: 10px 16px 12px;
+  border-top: 1px solid var(--linea);
+}
+
+.opciones {
+  display: none;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  min-height: 0;
+}
+
+.opciones.activo {
+  display: flex;
+}
+
+/* Burbujas de "lo que pensás": usan la fuente personalizada */
+.opcion {
+  font-family: "FuenteGlobos", "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--violeta);
+  border: 2px solid var(--verde);
+  color: var(--verde);
+  border-radius: 18px;
+  padding: 10px 18px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+  animation: aparecer 0.25s ease-out;
+}
+
+.opcion:hover {
+  background: var(--verde);
+  color: var(--violeta);
+  transform: translateY(-2px);
+}
+
+.fake-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fake-input .caja {
+  flex: 1;
+  background: var(--azul);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--texto-suave);
+  font-size: 1.1rem;
+}
+
+.fake-input .iconos {
+  color: var(--texto-suave);
+  font-size: 1.2rem;
+}
+
+/* Más espacio cuando cambia quién habla (probá con otro valor en px) */
+.burbuja.entrante + .burbuja.saliente,
+.burbuja.saliente + .burbuja.entrante,
+.burbuja.saliente + .escribiendo-burbuja {
+  margin-top: 14px;
+}
+
+/* ---------- Temblor de las letras de los pensamientos ---------- */
+.opcion .palabra {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.opcion .letra {
+  display: inline-block;
+  animation: temblor 0.3s infinite ease-in-out alternate;
+}
+
+/* Para que sea más fuerte o más suave, cambiá los px y los grados */
+@keyframes temblor {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(-0.5px, 0.6px) rotate(-1deg); }
+  50%  { transform: translate(0.6px, -0.4px) rotate(0.8deg); }
+  75%  { transform: translate(-0.4px, -0.6px) rotate(-0.6deg); }
+  100% { transform: translate(0.5px, 0.4px) rotate(1deg); }
+}
+
+/* Si la persona tiene desactivadas las animaciones en su sistema, no se mueve nada */
+@media (prefers-reduced-motion: reduce) {
+  .opcion .letra,
+  .chat-item.nuevo-chat {
+    animation: none;
+  }
+}
+
+/* ---------- Celular: lista de chats y conversación van por separado ---------- */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    border-right: 0;
+  }
+
+  .app.en-lista .sidebar {
+    display: flex;
+  }
+
+  .app.en-lista .chat {
+    display: none;
+  }
+
+  .volver {
+    display: block;
+  }
+
+  .burbuja {
+    max-width: 85%;
+  }
+
+  .burbuja.con-foto {
+    width: min(85%, 320px);
+  }
+
+  .mensajes {
+    padding: 14px 4%;
+  }
+}

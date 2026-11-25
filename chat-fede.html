@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fede | Mensajes</title>
+  <!-- Usa los mismos estilos del chat de WhatsApp (whatsapp.css tiene que estar en esta carpeta) -->
+  <link rel="stylesheet" href="whatsapp.css">
+  <style>
+    /* Un solo chat: sin lista de contactos, así que la conversación ocupa todo */
+    .app {
+      max-width: 720px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app" id="app">
+
+    <!-- Panel de la conversación con Fede (no hay lista de chats) -->
+    <main class="chat">
+      <header class="chat-header">
+        <div class="avatar" id="headerAvatar">😎</div>
+        <div>
+          <div class="titulo" id="headerTitulo">Fede</div>
+          <div class="estado" id="estado">en línea</div>
+        </div>
+      </header>
+
+      <div class="zona-chat">
+        <!-- Fondo con el patrón de imágenes (lo genera chat-fede.js) -->
+        <div class="patron" id="patron" aria-hidden="true"></div>
+        <!-- Acá se arma la conversación -->
+        <div class="paneles" id="paneles"></div>
+      </div>
+
+      <footer class="pie">
+        <div id="opcionesCont"></div>
+        <div class="fake-input">
+          <span class="iconos">☺</span>
+          <div class="caja" id="caja">Elegí una respuesta rápida</div>
+          <span class="iconos">🎤</span>
+        </div>
+      </footer>
+    </main>
+
+  </div>
+
+  <script src="chat-fede.js"></script>
+</body>
+</html>

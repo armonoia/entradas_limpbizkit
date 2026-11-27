@@ -345,9 +345,34 @@ async function correrGuion(desde = 0) {
   }
 }
 
+// ---------- Cartel final ----------
+// Cuando termina la charla con Fede, aparece este cartel para volver a la tienda
+const TEXTO_CARTEL_FINAL = "Volve a la tienda";
+
+function mostrarCartelFinal() {
+  // Capa que tapa toda la pantalla: no se puede tocar nada de lo de atrás
+  const overlay = document.createElement("div");
+  overlay.className = "cartel-overlay";
+  const cartel = document.createElement("div");
+  cartel.className = "cartel-final";
+  cartel.setAttribute("role", "alertdialog");
+  cartel.innerHTML =
+    '<div class="cartel-barra"><span></span><span></span><span></span></div>' +
+    '<div class="cartel-texto"></div>';
+  cartel.querySelector(".cartel-texto").textContent = TEXTO_CARTEL_FINAL;
+  overlay.appendChild(cartel);
+  document.body.appendChild(overlay);
+  // Bloquea también el teclado y los clicks en el chat de atrás
+  document.querySelector(".app").inert = true;
+  // Un instante después, para que se vea la animación de entrada
+  requestAnimationFrame(() => cartel.classList.add("visible"));
+}
+
 async function iniciar() {
   await esperar(800);
   await correrGuion(0);
+  await esperar(1200);
+  mostrarCartelFinal();
 }
 
 // ---------- Patrón de fondo con tus imágenes ----------

@@ -11,6 +11,66 @@
     .app {
       max-width: 720px;
     }
+
+    /* Cartel final: aparece cuando termina la charla con Fede */
+    /* Capa que bloquea toda la pantalla (no se cierra ni se puede tocar nada) */
+    .cartel-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(23, 13, 34, 0.75);
+      backdrop-filter: blur(3px);
+      cursor: default;
+    }
+
+    .cartel-final {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(420px, calc(100% - 40px));
+      color: var(--amarillo);
+      background: var(--violeta);
+      border: 4px solid var(--fucsia);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+      transform: translate(-50%, -50%) scale(0.85);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1), opacity 0.3s;
+    }
+
+    .cartel-final.visible {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    /* Barra de arriba con los tres puntitos */
+    .cartel-barra {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--fucsia);
+    }
+
+    .cartel-barra span {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .cartel-barra span:nth-child(1) { background: var(--amarillo); }
+    .cartel-barra span:nth-child(2) { background: var(--verde); }
+    .cartel-barra span:nth-child(3) { background: var(--violeta); }
+
+    .cartel-texto {
+      padding: 38px 24px 44px;
+      text-align: center;
+      font-family: "FuenteGlobos", "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: clamp(2rem, 7vw, 3rem);
+      line-height: 1.15;
+    }
+
   </style>
 </head>
 <body>
